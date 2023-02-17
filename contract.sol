@@ -99,6 +99,12 @@ contract Diploma {
         school_address = _school_address;
         emit DiplomaRealtionsSet(student_address, school_address);
     }
+
+    function getLinkedStudent() public returns (address _student_address) {
+        // TODO don't just return, find a way to "show" the value to the "user"
+        require(student_address != address(0), "aucun etudiant associe a ce diplome");
+        return student_address;
+    }
 }
 
 // company input => ["sanofi", "FR", "sante", "1900", "0", "4 rue des trucs", "contact@sanofi.fr", "0606060606", "https://sanofi.fr"]
