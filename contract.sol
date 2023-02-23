@@ -14,14 +14,34 @@ contract School {
     }
 
     event SchoolDataSet(SchoolData school);
+    SchoolData school;
 
     constructor(SchoolData memory _school) {
-        SchoolData memory school;
         school = _school;
-
         owner = msg.sender; 
         emit SchoolDataSet(school);
     }
+
+    function getSchoolName() external view returns(string memory) {
+        return school.name;
+    }
+    
+    function getSchoolType() external view returns(string memory) {
+        return school.typee;
+    }
+
+    function getSchoolCountry() external view returns(string memory) {
+        return school.name;
+    }
+    
+    function getSchoolAddress() external view returns(string memory) {
+        return school.addresss;
+    }
+    
+    function getSchoolWebSiteURL() external view returns(string memory) {
+        return school.url;
+    }
+
 }
 
 // student input => ["lastname","firstname","2345","0","nationality","0","948 rue des trucs","falsdjiw@gmail.com","0606060606","0","pfe_subject","company_sate_pfe","01012022","02012022","evaluation"]
@@ -52,9 +72,9 @@ contract Student {
     event CompanyAddressSet(address company_address);
 
     address public company_address;
+    StudentData std;
 
     constructor(StudentData memory _student) {
-        StudentData memory std;
 
         std = _student;
         emit StudentSet(std);
@@ -65,6 +85,75 @@ contract Student {
         company_address = _company_address;
         emit CompanyAddressSet(company_address);
     }
+
+    function getStudentLastName() external view returns(string memory) {
+        return std.lastname;
+    }
+
+    function getStudentFirstName() external view returns(string memory) {
+        return std.firstname;
+    }
+
+    function getStudentBirthDate() external view returns(uint) {
+        return std.birthdate;
+    }
+
+    function getStudentCivilStatus() external view returns (string memory) {
+        if (CivilStatus.A == std.civil_status) return "A";
+        if (CivilStatus.B == std.civil_status) return "B";
+        if (CivilStatus.C == std.civil_status) return "C";
+        return "";
+    }
+
+    function getStudentSex() external view returns (string memory) {
+        if (Sex.Men == std.sex) return "Men";
+        if (Sex.Women == std.sex) return "Women";
+        return "";
+    }
+
+    function getStudentSection() external view returns (string memory) {
+        if (Section.A == std.section) return "A";
+        if (Section.B == std.section) return "B";
+        if (Section.C == std.section) return "C";
+        return "";
+    }
+    
+    function getStudentNationality() external view returns(string memory) {
+        return std.nationality;
+    }
+    
+    function getStudentAdress() external view returns(string memory) {
+        return std.addres;
+    }
+
+    function getStudentEmail() external view returns(string memory) {
+        return std.email;
+    }
+
+    function getStudentPhoneNumber() external view returns(uint) {
+        return std.phone;
+    }
+
+    function getStudentPfeSubject() external view returns(string memory) {
+        return std.pfe_subject;
+    }
+
+    function getStudentCompanyStatePfe() external view returns(string memory) {
+        return std.company_sate_pfe;
+    }
+
+    function getStudentStageStartDate() external view returns(uint) {
+        return std.stage_start_date;
+    }
+
+    function getStudentStageEndDate() external view returns(uint) {
+        return std.stage_end_date;
+    }
+
+    function getStudentEvaluation() external view returns(string memory) {
+        return std.evaluation;
+    }
+
 }
 
 // diploma input => ["diploma name", "type", "FR", "Info", "mention", "20220901"]
@@ -86,9 +175,9 @@ contract Diploma {
     event DiplomaDataSet(DiplomaData diploma);
     event DiplomaRealtionsSet(address student_address, address school_address);
 
-    constructor(DiplomaData memory _diploma) {
-        DiplomaData memory diploma;
+    DiplomaData diploma;
 
+    constructor(DiplomaData memory _diploma) {
         diploma = _diploma;
         emit DiplomaDataSet(diploma);
     }
@@ -100,11 +189,36 @@ contract Diploma {
         emit DiplomaRealtionsSet(student_address, school_address);
     }
 
-    function getLinkedStudent() public returns (address _student_address) {
+    function getLinkedStudent() external view returns (address _student_address) {
         // TODO don't just return, find a way to "show" the value to the "user"
         require(student_address != address(0), "aucun etudiant associe a ce diplome");
         return student_address;
     }
+
+    function getDiplomaName() external view returns(string memory) {
+        return diploma.name;
+    }
+
+    function getDiplomaType() external view returns(string memory) {
+        return diploma.typee;
+    }
+
+    function getDiplomaCountry() external view returns(string memory) {
+        return diploma.country;
+    }
+
+    function getDiplomaSpeciality() external view returns(string memory) {
+        return diploma.speciality;
+    }
+
+    function getDiplomaMention() external view returns(string memory) {
+        return diploma.mention;
+    }
+
+    function getDiplomaGettingDate() external view returns(string memory) {
+        return diploma.getting_date;
+    }
+
 }
 
 // company input => ["sanofi", "FR", "sante", "1900", "0", "4 rue des trucs", "contact@sanofi.fr", "0606060606", "https://sanofi.fr"]
@@ -127,11 +241,52 @@ contract Company {
 
     event CompanyDataSet(CompanyData company);
 
+    CompanyData company;
+
     constructor(CompanyData memory _company) {
-        CompanyData memory company;
 
         company = _company;
         emit CompanyDataSet(company);
     }
-}
 
+    function getCompanyName() external view returns(string memory) {
+        return company.name;
+    }
+    
+    function getCompanyCounty() external view returns(string memory) {
+        return company.country;
+    }
+    
+    function getCompanyBuisnessLine() external view returns(string memory) {
+        return company.business_line;
+    }
+
+    function getCompanyCreatedAt() external view returns(uint) {
+        return company.created_at;
+    }
+
+    function getCompanySize() external view returns (string memory) {
+        if (CompanySize.A == company.size) return "A";
+        if (CompanySize.B == company.size) return "B";
+        if (CompanySize.C == company.size) return "C";
+        return "";
+    }
+        
+    function getCompanyAddress() external view returns(string memory) {
+        return company.addresss;
+    }
+    
+    function getCompanyEmail() external view returns(string memory) {
+        return company.email;
+    }
+    
+    function getCompanyPhoneNumber() external view returns(string memory) {
+        return company.phone;
+    }
+
+    function getCompanyWebSite() external view returns(string memory) {
+        return company.website;
+    }
+
+
+}
